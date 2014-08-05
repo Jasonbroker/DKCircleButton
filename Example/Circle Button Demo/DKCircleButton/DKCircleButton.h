@@ -19,4 +19,15 @@
 
 - (void)setImage:(UIImage *)image animated: (BOOL)animated;
 
+/**
+ * fast creation
+ */
++ (id)circleButtonWithSize:(CGSize)size borderSize:(CGFloat)borderSize normalTitle:(NSString *)title addTarget:(id)target action:(SEL)action animated:(BOOL)animated;
+
+///
+
+- (void)selectedWithAnimation:(BOOL)animation;
+
+- (void)deselected;
+
 @end

@@ -19,7 +19,7 @@
 		02752159191530B6004C3D82 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02752141191530B6004C3D82 /* UIKit.framework */; };
 		02752161191530B6004C3D82 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0275215F191530B6004C3D82 /* InfoPlist.strings */; };
 		02752163191530B6004C3D82 /* Circle_Button_DemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 02752162191530B6004C3D82 /* Circle_Button_DemoTests.m */; };
-		0275216F191530F7004C3D82 /* DKCircleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 0275216E191530F7004C3D82 /* DKCircleButton.m */; };
+		96DDD625198B983100F3D950 /* DKCircleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DDD624198B983100F3D950 /* DKCircleButton.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,8 +49,8 @@
 		0275215E191530B6004C3D82 /* Circle Button DemoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Circle Button DemoTests-Info.plist"; sourceTree = "<group>"; };
 		02752160191530B6004C3D82 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		02752162191530B6004C3D82 /* Circle_Button_DemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Circle_Button_DemoTests.m; sourceTree = "<group>"; };
-		0275216D191530F7004C3D82 /* DKCircleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKCircleButton.h; sourceTree = "<group>"; };
-		0275216E191530F7004C3D82 /* DKCircleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKCircleButton.m; sourceTree = "<group>"; };
+		96DDD623198B983100F3D950 /* DKCircleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKCircleButton.h; sourceTree = "<group>"; };
+		96DDD624198B983100F3D950 /* DKCircleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKCircleButton.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,8 +151,16 @@
 		0275216C191530F7004C3D82 /* DKCircleButton */ = {
 			isa = PBXGroup;
 			children = (
-				0275216D191530F7004C3D82 /* DKCircleButton.h */,
-				0275216E191530F7004C3D82 /* DKCircleButton.m */,
+				96DDD622198B983100F3D950 /* DKCircleButton */,
+			);
+			path = DKCircleButton;
+			sourceTree = "<group>";
+		};
+		96DDD622198B983100F3D950 /* DKCircleButton */ = {
+			isa = PBXGroup;
+			children = (
+				96DDD623198B983100F3D950 /* DKCircleButton.h */,
+				96DDD624198B983100F3D950 /* DKCircleButton.m */,
 			);
 			path = DKCircleButton;
 			sourceTree = "<group>";
@@ -254,7 +262,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0275214A191530B6004C3D82 /* main.m in Sources */,
-				0275216F191530F7004C3D82 /* DKCircleButton.m in Sources */,
+				96DDD625198B983100F3D950 /* DKCircleButton.m in Sources */,
 				0275214E191530B6004C3D82 /* DKAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -452,6 +460,7 @@
 				02752168191530B6004C3D82 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		02752169191530B6004C3D82 /* Build configuration list for PBXNativeTarget "Circle Button DemoTests" */ = {
 			isa = XCConfigurationList;
@@ -460,6 +469,7 @@
 				0275216B191530B6004C3D82 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

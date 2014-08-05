@@ -103,6 +103,9 @@
     
     maskLayer.bounds = maskBounds;
     maskLayer.path = maskPath;
+    
+    CGPathRelease(maskPath);
+    
     maskLayer.fillColor = [UIColor blackColor].CGColor;
     
     CGPoint point = CGPointMake(maskBounds.size.width/2, maskBounds.size.height/2);
@@ -115,6 +118,7 @@
     self.layer.borderWidth = self.borderSize;
     
     self.highLightView.frame = self.bounds;
+    
 }
 
 - (void)blink {
@@ -224,6 +228,36 @@
     } else {
         [super setImage:image forState:UIControlStateNormal];
     }
+}
+
+///**************************************  fast creation      **************************************
++ (id)circleButtonWithSize:(CGSize)size borderSize:(CGFloat)borderSize normalTitle:(NSString *)title addTarget:(id)target action:(SEL)action animated:(BOOL)animated
+{
+    DKCircleButton *readModeBtn = [[DKCircleButton alloc] init];
+    readModeBtn.frame = CGRectMake(0, 0, size.width, size.height);
+    
+    animated?[readModeBtn blink]:nil;
+    
+    readModeBtn.borderSize = 1.5f;
+    [readModeBtn addTarget:target action:action forControlEvents:UIControlEventTouchDown];
+
+    [readModeBtn setTitle:title forState:UIControlStateNormal];
+    readModeBtn.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:17];
+
+    return readModeBtn;
+}
+
+- (void)selectedWithAnimation:(BOOL)animation
+{
+    animation?[self blink]: nil;
+    [self setSelected:YES];
+    self.backgroundColor = [UIColor colorWithWhite:1 alpha:0.25];
+
+}
+- (void)deselected
+{
+    [self setSelected:NO];
+    self.backgroundColor = nil;
 }
 
 @end
