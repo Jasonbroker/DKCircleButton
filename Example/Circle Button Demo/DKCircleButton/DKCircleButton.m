@@ -238,7 +238,7 @@
     
     animated?[readModeBtn blink]:nil;
     
-    readModeBtn.borderSize = 1.5f;
+    readModeBtn.borderSize = borderSize;
     [readModeBtn addTarget:target action:action forControlEvents:UIControlEventTouchDown];
 
     [readModeBtn setTitle:title forState:UIControlStateNormal];
