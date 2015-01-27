@@ -20,61 +20,74 @@
 
 @implementation DKCircleButton
 
-@synthesize highLightView = _highLightView;
-@synthesize displayShading = _displayShading;
-@synthesize gradientLayerTop = _gradientLayerTop;
-@synthesize gradientLayerBottom = _gradientLayerBottom;
-@synthesize borderSize = _borderSize;
-@synthesize borderColor = _borderColor;
-@synthesize animateTap = _animateTap;
+@synthesize highLightView;
+@synthesize displayShading;
+@synthesize gradientLayerTop;
+@synthesize gradientLayerBottom;
+@synthesize borderSize;
+@synthesize borderColor;
+@synthesize animateTap;
+
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    self = [super initWithCoder:coder];
+    if (self) {
+        [self commonInit];
+    }
+    return self;
+}
 
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     
     if (self) {
-        _highLightView = [[UIView alloc] initWithFrame:frame];
-        
-        _highLightView.userInteractionEnabled = YES;
-        _highLightView.alpha = 0;
-        _highLightView.backgroundColor = [UIColor colorWithWhite:1 alpha:0.5];
-        
-        _borderColor = [UIColor whiteColor];
-        _animateTap = YES;
-        _borderSize = DKCircleButtonBorderWidth;
-        
-        self.clipsToBounds = YES;
-        self.titleLabel.textAlignment = NSTextAlignmentCenter;
-        self.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        
-        _gradientLayerTop = [CAGradientLayer layer];
-        _gradientLayerTop.frame = CGRectMake(0.0, 0.0, frame.size.width, frame.size.height / 4);
-        _gradientLayerTop.colors = @[(id)[UIColor blackColor].CGColor, (id)[[UIColor lightGrayColor] colorWithAlphaComponent:0.01].CGColor];
-        
-        _gradientLayerBottom = [CAGradientLayer layer];
-        _gradientLayerBottom.frame = CGRectMake(0.0, frame.size.height * 3 / 4, frame.size.width, frame.size.height / 4);
-        _gradientLayerBottom.colors = @[(id)[[UIColor lightGrayColor] colorWithAlphaComponent:0.01].CGColor, (id)[UIColor blackColor].CGColor];
-
-        [self addSubview:_highLightView];        
+        [self commonInit];
     }
     
     return self;
 }
 
-- (void)setDisplayShading:(BOOL)displayShading {
-    _displayShading = displayShading;
+-(void)commonInit{
+    highLightView = [[UIView alloc] initWithFrame:self.bounds];
+    
+    highLightView.userInteractionEnabled = YES;
+    highLightView.alpha = 0;
+    highLightView.backgroundColor = [UIColor colorWithWhite:1 alpha:0.5];
+    
+    borderColor = [UIColor whiteColor];
+    animateTap = YES;
+    borderSize = DKCircleButtonBorderWidth;
+    
+    self.clipsToBounds = YES;
+    self.titleLabel.textAlignment = NSTextAlignmentCenter;
+    self.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    
+    gradientLayerTop = [CAGradientLayer layer];
+    gradientLayerTop.frame = CGRectMake(0.0, 0.0, self.bounds.size.width, self.bounds.size.height / 4);
+    gradientLayerTop.colors = @[(id)[UIColor blackColor].CGColor, (id)[[UIColor lightGrayColor] colorWithAlphaComponent:0.01].CGColor];
+    
+    gradientLayerBottom = [CAGradientLayer layer];
+    gradientLayerBottom.frame = CGRectMake(0.0, self.bounds.size.height * 3 / 4, self.bounds.size.width, self.bounds.size.height / 4);
+    gradientLayerBottom.colors = @[(id)[[UIColor lightGrayColor] colorWithAlphaComponent:0.01].CGColor, (id)[UIColor blackColor].CGColor];
+    
+    [self addSubview:highLightView];
+}
+
+- (void)setDisplayShading:(BOOL)dS {
+    displayShading = dS;
     
     if (displayShading) {
-        [self.layer addSublayer:self.gradientLayerTop];
-        [self.layer addSublayer:self.gradientLayerBottom];
+        [self.layer addSublayer:gradientLayerTop];
+        [self.layer addSublayer:gradientLayerBottom];
     } else {
-        [self.gradientLayerTop removeFromSuperlayer];
-        [self.gradientLayerBottom removeFromSuperlayer];
+        [gradientLayerTop removeFromSuperlayer];
+        [gradientLayerBottom removeFromSuperlayer];
     }
     [self layoutSubviews];
 }
 
-- (void)setBorderColor:(UIColor *)borderColor {
-    _borderColor = borderColor;
+- (void)setBorderColor:(UIColor *)bC {
+    borderColor = bC;
     
     [self layoutSubviews];
 }
@@ -87,12 +100,12 @@
 - (void)setHighlighted:(BOOL)highlighted {
     
     if (highlighted) {
-        self.layer.borderColor = [self.borderColor colorWithAlphaComponent:1.0].CGColor;
+        self.layer.borderColor = [borderColor colorWithAlphaComponent:1.0].CGColor;
         
         [self triggerAnimateTap];
     }
     else {
-        self.layer.borderColor = [self.borderColor colorWithAlphaComponent:0.7].CGColor;
+        self.layer.borderColor = [borderColor colorWithAlphaComponent:0.7].CGColor;
     }
 }
 
@@ -103,6 +116,9 @@
     
     maskLayer.bounds = maskBounds;
     maskLayer.path = maskPath;
+    
+    CGPathRelease(maskPath);
+    
     maskLayer.fillColor = [UIColor blackColor].CGColor;
     
     CGPoint point = CGPointMake(maskBounds.size.width/2, maskBounds.size.height/2);
@@ -111,10 +127,10 @@
     [self.layer setMask:maskLayer];
     
     self.layer.cornerRadius = CGRectGetHeight(maskBounds) / 2.0;
-    self.layer.borderColor = [self.borderColor colorWithAlphaComponent:0.7].CGColor;
-    self.layer.borderWidth = self.borderSize;
+    self.layer.borderColor = [borderColor colorWithAlphaComponent:0.7].CGColor;
+    self.layer.borderWidth = borderSize;
     
-    self.highLightView.frame = self.bounds;
+    highLightView.frame = self.bounds;
 }
 
 - (void)blink {
@@ -152,11 +168,11 @@
 
 - (void)triggerAnimateTap {
     
-    if (self.animateTap == NO) {
+    if (animateTap == NO) {
         return;
     }
     
-    self.highLightView.alpha = 1;
+    highLightView.alpha = 1;
     
     __weak typeof(self) this = self;
     
@@ -179,7 +195,7 @@
     circleShape.position = shapePosition;
     circleShape.fillColor = [UIColor clearColor].CGColor;
     circleShape.opacity = 0;
-    circleShape.strokeColor = self.borderColor.CGColor;
+    circleShape.strokeColor = borderColor.CGColor;
     circleShape.lineWidth = 2.0;
     
     [self.superview.layer addSublayer:circleShape];
